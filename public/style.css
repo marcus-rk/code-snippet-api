@@ -4,6 +4,21 @@
     color: greenyellow;
 }
 
+.hidden {
+    display: none;
+}
+
 body {
+    display: flex;
+    flex-direction: column;
+    gap:16px;
     background-color: black;
+}
+
+button {
+    color: greenyellow;
+    background: none;
+    border: 3px solid greenyellow;
+    border-radius: 6px;
+    padding: 8px;
 }

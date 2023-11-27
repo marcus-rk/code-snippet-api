@@ -7,8 +7,8 @@ const mysql = require("mysql2");
 // npm install cors --save
 const cors = require("cors");
 
-// npm install fs --save
-const fs = require('fs');
+// npm install path --save
+const path = require("path");
 
 // password for MySQL from password.js that is on .gitignore
 const password = require('./password');
@@ -26,11 +26,10 @@ const connection = mysql.createConnection({
     database:"code_snippet"
 });
 
-app.get('/',(req, res)=>{
-    connection.query('SELECT * FROM `user`',(error,results)=>{
-        res.send(results);
-    });
-});
+// All files within the public folder will be served automatically
+// when you access the root path http://localhost:3000/
+// documentation: https://expressjs.com/en/starter/static-files.html
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port, () =>{
     console.log(`Application is now running on port ${port}`);
