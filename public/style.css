@@ -15,6 +15,18 @@ body {
     background-color: black;
 }
 
+ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+li {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
 button {
     color: greenyellow;
     background: none;

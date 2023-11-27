@@ -31,6 +31,24 @@ const connection = mysql.createConnection({
 // documentation: https://expressjs.com/en/starter/static-files.html
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/users',(req, res)=>{
+    connection.query('SELECT * FROM `user`',(error, results)=>{
+        res.send(results);
+    });
+});
+
+app.get('/code-snippets',(req, res)=>{
+    connection.query('SELECT * FROM code_snippet',(error, results)=>{
+        res.send(results);
+    });
+});
+
+app.get('/code-snippet-faves',(req, res)=>{
+    connection.query('SELECT * FROM code_snippet_fave',(error, results)=>{
+        res.send(results);
+    });
+});
+
 app.listen(port, () =>{
     console.log(`Application is now running on port ${port}`);
 });
