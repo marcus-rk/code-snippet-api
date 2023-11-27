@@ -38,15 +38,24 @@ app.get('/users',(req, res)=>{
     });
 });
 
-// Select title, user, code, programming langauge and created_date
+// Select all code snippets
+// Select title, author, language, code and date
 app.get('/code-snippets',(req, res)=>{
-    connection.query('SELECT CS.title, U.username, PL.language_name AS programming_language, CS.code_snippet AS `code`, CS.created_at FROM code_snippet AS CS INNER JOIN `user` AS U ON CS.user_id = U.user_id INNER JOIN programming_language AS PL ON CS.language_id = PL.language_id',(error, results)=>{
+    connection.query('SELECT CS.title, U.username AS author, PL.language_name AS programming_language, CS.code_snippet AS `code`, CS.created_at AS `date` FROM code_snippet AS CS INNER JOIN `user` AS U ON CS.user_id = U.user_id INNER JOIN programming_language AS PL ON CS.language_id = PL.language_id',(error, results)=>{
         res.send(results);
     });
 });
 
-app.get('/code-snippet-faves',(req, res)=>{
-    connection.query('SELECT * FROM code_snippet_fave',(error, results)=>{
+
+// Select fave code-snippets for specific user id
+// Select title, author, language and code
+app.get('/code-snippet-faves/:id',(req, res)=>{
+    const idFromUser = req.params.id;
+
+    connection.query('SELECT CS.title, U.username AS author, PL.language_name AS programming_language, CS.code_snippet AS `code` FROM code_snippet_fave AS CSF INNER JOIN code_snippet AS CS ON CSF.snippet_id = CS.snippet_id INNER JOIN programming_language AS PL ON CS.language_id = PL.language_id INNER JOIN `user` AS U ON CS.user_id = U.user_id WHERE CSF.user_id = ?',
+        [idFromUser],
+        (error, results)=>{
+            console.log(results)
         res.send(results);
     });
 });

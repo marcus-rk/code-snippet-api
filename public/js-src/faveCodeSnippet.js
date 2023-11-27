@@ -5,7 +5,9 @@ const faveSnippetUlElement = document.querySelector('.fave-snippet ul');
 faveSnippetButton.addEventListener('click', showFaveCodeSnippets);
 
 function showFaveCodeSnippets() {
-    fetch('/code-snippet-faves')
+    const userId = getCurrentUserID();
+
+    fetch(`/code-snippet-faves/${userId}`)
         .then(response => response.json())
         .then(faveSnippetArray => createAndDisplayFaveSnippets(faveSnippetArray)
         ).catch(error => {
@@ -26,18 +28,26 @@ function createAndDisplayFaveSnippets(faveSnippetArray) {
 }
 
 function getFaveSnippetElement(faveSnippetObject) {
-    const id = faveSnippetObject.fave_id;
-    const date = faveSnippetObject.created_at;
+    const title = faveSnippetObject.title;
+    const author = faveSnippetObject.author;
+    const programmingLanguage = faveSnippetObject.programming_language;
+    const code = faveSnippetObject.code;
 
     const li = document.createElement('li');
-    const spanId = document.createElement('span');
-    const spanDate = document.createElement('span');
+    const spanTitle = document.createElement('span');
+    const spanAuthor = document.createElement('span');
+    const spanProgrammingLanguage = document.createElement('span');
+    const spanCode = document.createElement('span');
 
-    spanId.innerText = `ID: ${id}`;
-    spanDate.innerText = `Date: ${date}`;
+    spanTitle.innerText = `Title: ${title}`;
+    spanAuthor.innerText = `Author: ${author}`;
+    spanProgrammingLanguage.innerText = `Programming language: ${programmingLanguage}`;
+    spanCode.innerText = `\n ${code}`;
 
-    li.appendChild(spanId);
-    li.appendChild(spanDate);
+    li.appendChild(spanTitle);
+    li.appendChild(spanAuthor);
+    li.appendChild(spanProgrammingLanguage);
+    li.appendChild(spanCode);
 
     return li;
 }

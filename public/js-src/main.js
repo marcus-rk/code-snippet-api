@@ -1,3 +1,10 @@
+const selectElement = document.querySelector('#logged-in');
+
+// TODO: make this dynamic in options
+function getCurrentUserID() {
+    return selectElement.value;
+}
+
 function renderLiToUl(ulElement, liElement) {
     ulElement.appendChild(liElement);
 }

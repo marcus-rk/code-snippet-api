@@ -27,9 +27,9 @@ function createAndDisplayCodeSnippets(codeSnippetArray) {
 
 function getCodeSnippetElement(codeSnippetObject) {
     const title = codeSnippetObject.title;
-    const author = codeSnippetObject.username;
+    const author = codeSnippetObject.author;
     const programmingLanguage = codeSnippetObject.programming_language;
-    const date = codeSnippetObject.created_at.slice(0,10);
+    const date = codeSnippetObject.date.slice(0,10);
     const code = codeSnippetObject.code;
 
     const li = document.createElement('li');
