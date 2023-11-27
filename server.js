@@ -31,14 +31,16 @@ const connection = mysql.createConnection({
 // documentation: https://expressjs.com/en/starter/static-files.html
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Select all from user (except password)
 app.get('/users',(req, res)=>{
-    connection.query('SELECT * FROM `user`',(error, results)=>{
+    connection.query('SELECT user_id, username, created_at FROM `user`',(error, results)=>{
         res.send(results);
     });
 });
 
+// Select title, user, code, programming langauge and created_date
 app.get('/code-snippets',(req, res)=>{
-    connection.query('SELECT * FROM code_snippet',(error, results)=>{
+    connection.query('SELECT CS.title, U.username, PL.language_name AS programming_language, CS.code_snippet AS `code`, CS.created_at FROM code_snippet AS CS INNER JOIN `user` AS U ON CS.user_id = U.user_id INNER JOIN programming_language AS PL ON CS.language_id = PL.language_id',(error, results)=>{
         res.send(results);
     });
 });

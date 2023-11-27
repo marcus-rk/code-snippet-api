@@ -13,7 +13,6 @@ function showCodeSnippets() {
     });
 }
 
-
 function createAndDisplayCodeSnippets(codeSnippetArray) {
     hideSections();
     clearUl(codeSnippetUlElement);
@@ -28,18 +27,29 @@ function createAndDisplayCodeSnippets(codeSnippetArray) {
 
 function getCodeSnippetElement(codeSnippetObject) {
     const title = codeSnippetObject.title;
-    const code = codeSnippetObject.code_snippet;
+    const author = codeSnippetObject.username;
+    const programmingLanguage = codeSnippetObject.programming_language;
+    const date = codeSnippetObject.created_at.slice(0,10);
+    const code = codeSnippetObject.code;
 
     const li = document.createElement('li');
     const spanTitle = document.createElement('span');
+    const spanAuthor = document.createElement('span');
+    const spanProgrammingLanguage = document.createElement('span');
+    const spanDate = document.createElement('span');
     const spanCode = document.createElement('span');
 
     spanTitle.innerText = `Title: ${title}`;
-    spanCode.innerText = `Code:\n${code}`;
+    spanAuthor.innerText = `Author: ${author}`;
+    spanProgrammingLanguage.innerText = `Programming language: ${programmingLanguage}`;
+    spanDate.innerText = `Date: ${date}`;
+    spanCode.innerText = `\n ${code}`;
 
     li.appendChild(spanTitle);
+    li.appendChild(spanAuthor);
+    li.appendChild(spanProgrammingLanguage);
+    li.appendChild(spanDate);
     li.appendChild(spanCode);
 
     return li;
-
 }
