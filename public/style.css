@@ -10,9 +10,59 @@
 
 body {
     display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 100dvh;
+    width: 100%;
     flex-direction: column;
-    gap:16px;
     background-color: black;
+}
+
+/*********************************************/
+/************ HEADER START *******************/
+/*********************************************/
+
+header {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 2px solid greenyellow;
+}
+
+select {
+    -webkit-appearance: none !important;
+    color: greenyellow !important;
+    -webkit-appearance: menulist;
+}
+
+/*******************************************/
+/************ MAIN START *******************/
+/*******************************************/
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+}
+
+button, select {
+    color: greenyellow;
+    background: none;
+    border: 3px solid greenyellow;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
+    border-bottom: 2px solid greenyellow;
 }
 
 ul {
@@ -25,12 +75,4 @@ li {
     display: flex;
     flex-direction: column;
     gap: 3px;
-}
-
-button {
-    color: greenyellow;
-    background: none;
-    border: 3px solid greenyellow;
-    border-radius: 6px;
-    padding: 8px;
 }

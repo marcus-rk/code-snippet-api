@@ -7,13 +7,25 @@
 </head>
 <body>
 <header>
-    <h1>code-snippet-project</h1>
+    <h1>code-snippet-project.</h1>
+
+    <!-- TODO: Make logged in options dynamic to database -->
+    <div>
+        <label for="logged-in">Log in as:</label>
+        <select id="logged-in">
+            <option value="1">john_doe</option>
+            <option value="2">jane_smith</option>
+            <option value="3">bob_coder</option>
+        </select>
+    </div>
 </header>
 
 <main>
-    <button id="user-btn">show users</button>
-    <button id="code-snippet-btn">show code-snippets</button>
-    <button id="fave-snippet-btn">show fave-snippets</button>
+    <div class="buttons">
+        <button id="user-btn">show all users</button>
+        <button id="code-snippet-btn">show all code-snippets</button>
+        <button id="fave-snippet-btn">show fave-snippets</button>
+    </div>
 
     <section class="user hidden">
         <h2>users:</h2>
