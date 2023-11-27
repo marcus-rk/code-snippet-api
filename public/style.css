@@ -46,15 +46,18 @@ main {
     justify-content: center;
     align-items: center;
     width: 95%;
+    gap: 20px;
 }
 
 button, select {
     color: greenyellow;
     background: none;
     border: 3px solid greenyellow;
-    border-radius: 6px;
-    padding: 8px;
-}
+    padding: 12px;
+} button:hover, select:hover {
+    cursor: pointer;
+      border: 3px dashed greenyellow;
+  }
 
 .buttons {
     display: flex;
@@ -65,14 +68,24 @@ button, select {
     border-bottom: 2px solid greenyellow;
 }
 
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
 ul {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap:20px;
 }
 
 li {
     display: flex;
     flex-direction: column;
     gap: 3px;
+    border: 2px dotted yellowgreen;
+    padding: 20px;
 }

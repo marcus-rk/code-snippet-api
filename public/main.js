@@ -56,13 +56,20 @@ function createAndDisplayUsers(userArray) {
 function getUserElement(userObject) {
     const username = userObject.username;
     const id = userObject.user_id;
+    const date = userObject.created_at.slice(0,10); // YYYY-MM-DD (not time)
 
     const li = document.createElement('li');
-    const span = document.createElement('span');
+    const spanUsername = document.createElement('span');
+    const spanId = document.createElement('span');
+    const spanDate = document.createElement('span');
 
-    span.innerText = `Username: ${username}, id: ${id}`;
+    spanUsername.innerText = `Username: ${username}`;
+    spanId.innerText = `ID: ${id}`;
+    spanDate.innerText = `Created: ${date}`;
 
-    li.appendChild(span);
+    li.appendChild(spanUsername);
+    li.appendChild(spanId);
+    li.appendChild(spanDate);
 
     return li;
 }
@@ -88,7 +95,7 @@ function getCodeSnippetElement(codeSnippetObject) {
     const spanCode = document.createElement('span');
 
     spanTitle.innerText = `Title: ${title}`;
-    spanCode.innerText = `Code: ${code}`;
+    spanCode.innerText = `Code:\n${code}`;
 
     li.appendChild(spanTitle);
     li.appendChild(spanCode);
