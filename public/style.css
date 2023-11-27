@@ -11,11 +11,11 @@
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: start;
     align-items: center;
-    height: 100dvh;
+    min-height: 100dvh;
     width: 100%;
-    flex-direction: column;
     background-color: black;
 }
 
@@ -89,4 +89,15 @@ li {
     gap: 3px;
     border: 2px dotted yellowgreen;
     padding: 20px;
+}
+
+/*********************************************/
+/************ FOOTEr START *******************/
+/*********************************************/
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
 }
