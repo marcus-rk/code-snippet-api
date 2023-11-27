@@ -18,7 +18,7 @@ const port = 3000;
 
 app.use(cors()); // avoid network security restrictions
 
-//Host, user, password database
+// Creating connection to code-snippet database in MySQL
 const connection = mysql.createConnection({
     host:"localhost",
     user:"root",
