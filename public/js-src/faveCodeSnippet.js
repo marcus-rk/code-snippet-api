@@ -9,7 +9,7 @@ faveSnippetButton.addEventListener('click', showFaveCodeSnippets);
 function showFaveCodeSnippets() {
     const userId = getCurrentUserID();
 
-    fetch(`/code-snippet-faves/${userId}`)
+    fetch(`/${userId}/code-snippet-faves`)
         .then(response => response.json())
         .then(faveSnippetArray => createAndDisplayFaveSnippets(faveSnippetArray)
         ).catch(error => {

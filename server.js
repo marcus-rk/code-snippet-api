@@ -49,7 +49,7 @@ app.get('/code-snippets',(req, res)=>{
 
 // Select fave code-snippets for specific user id
 // Select title, author, language and code
-app.get('/code-snippet-faves/:id',(req, res)=>{
+app.get('/:id/code-snippet-faves',(req, res)=>{
     const idFromUser = req.params.id;
 
     connection.query('SELECT CS.title, U.username AS author, PL.language_name AS programming_language, CS.code_snippet AS `code` FROM code_snippet_fave AS CSF INNER JOIN code_snippet AS CS ON CSF.snippet_id = CS.snippet_id INNER JOIN programming_language AS PL ON CS.language_id = PL.language_id INNER JOIN `user` AS U ON CS.user_id = U.user_id WHERE CSF.user_id = ?',
