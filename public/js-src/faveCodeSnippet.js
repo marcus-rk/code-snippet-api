@@ -1,6 +1,8 @@
 const faveSnippetButton = document.querySelector('#fave-snippet-btn');
 const faveSnippetSectionElement = document.querySelector('.fave-snippet');
 const faveSnippetUlElement = document.querySelector('.fave-snippet ul');
+const faveSnippetCountElement = document.querySelector('.fave-snippet span');
+
 
 faveSnippetButton.addEventListener('click', showFaveCodeSnippets);
 
@@ -24,6 +26,7 @@ function createAndDisplayFaveSnippets(faveSnippetArray) {
         renderLiToUl(faveSnippetUlElement, faveSnippetLiElement);
     });
 
+    faveSnippetCountElement.innerText = `(Found ${faveSnippetArray.length} code-snippets)`;
     faveSnippetSectionElement.classList.remove('hidden');
 }
 

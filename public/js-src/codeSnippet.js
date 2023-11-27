@@ -1,6 +1,7 @@
 const codeSnippetButton = document.querySelector('#code-snippet-btn');
 const codeSnippetSectionElement = document.querySelector('.code-snippet');
 const codeSnippetUlElement = document.querySelector('.code-snippet ul');
+const codeSnippetCountElement = document.querySelector('.code-snippet span');
 
 codeSnippetButton.addEventListener('click', showCodeSnippets);
 
@@ -22,6 +23,7 @@ function createAndDisplayCodeSnippets(codeSnippetArray) {
         renderLiToUl(codeSnippetUlElement, codeSnippetLiElement);
     });
 
+    codeSnippetCountElement.innerText = `(Found ${codeSnippetArray.length} code-snippets)`;
     codeSnippetSectionElement.classList.remove('hidden');
 }
 

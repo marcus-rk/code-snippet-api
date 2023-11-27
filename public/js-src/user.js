@@ -1,6 +1,7 @@
 const userButton = document.querySelector('#user-btn');
 const userSectionElement = document.querySelector('.user');
 const userUlElement = document.querySelector('.user ul');
+const userCountElement = document.querySelector('.user span');
 
 userButton.addEventListener('click', showUsers);
 
@@ -22,6 +23,7 @@ function createAndDisplayUsers(userArray) {
         renderLiToUl(userUlElement, userLiElement);
     });
 
+    userCountElement.innerText = `(Found ${userArray.length} users)`;
     userSectionElement.classList.remove('hidden');
 }
 
