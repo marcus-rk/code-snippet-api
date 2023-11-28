@@ -33,25 +33,29 @@ function getCodeSnippetElement(codeSnippetObject) {
     const programmingLanguage = codeSnippetObject.programming_language;
     const date = codeSnippetObject.date.slice(0,10);
     const code = codeSnippetObject.code;
+    const codeFormatted = code.replaceAll('\t', '\n') // tab and new line
 
     const li = document.createElement('li');
     const spanTitle = document.createElement('span');
     const spanAuthor = document.createElement('span');
     const spanProgrammingLanguage = document.createElement('span');
     const spanDate = document.createElement('span');
-    const spanCode = document.createElement('span');
+    const pre = document.createElement('pre');
+    const codeTag = document.createElement('code');
 
     spanTitle.innerText = `Title: ${title}`;
     spanAuthor.innerText = `Author: ${author}`;
     spanProgrammingLanguage.innerText = `Programming language: ${programmingLanguage}`;
     spanDate.innerText = `Date: ${date}`;
-    spanCode.innerText = `\n ${code}`;
+    codeTag.innerText = `\n${codeFormatted}`;
+
+    pre.appendChild(codeTag);
 
     li.appendChild(spanTitle);
     li.appendChild(spanAuthor);
     li.appendChild(spanProgrammingLanguage);
     li.appendChild(spanDate);
-    li.appendChild(spanCode);
+    li.appendChild(pre);
 
     return li;
 }

@@ -35,22 +35,26 @@ function getFaveSnippetElement(faveSnippetObject) {
     const author = faveSnippetObject.author;
     const programmingLanguage = faveSnippetObject.programming_language;
     const code = faveSnippetObject.code;
+    const codeFormatted = code.replaceAll('\t', '\n') // tab and new line
 
     const li = document.createElement('li');
     const spanTitle = document.createElement('span');
     const spanAuthor = document.createElement('span');
     const spanProgrammingLanguage = document.createElement('span');
-    const spanCode = document.createElement('span');
+    const pre = document.createElement('pre');
+    const codeTag = document.createElement('code');
 
     spanTitle.innerText = `Title: ${title}`;
     spanAuthor.innerText = `Author: ${author}`;
     spanProgrammingLanguage.innerText = `Programming language: ${programmingLanguage}`;
-    spanCode.innerText = `\n ${code}`;
+    codeTag.innerText = `\n${codeFormatted}`;
+
+    pre.appendChild(codeTag);
 
     li.appendChild(spanTitle);
     li.appendChild(spanAuthor);
     li.appendChild(spanProgrammingLanguage);
-    li.appendChild(spanCode);
+    li.appendChild(pre);
 
     return li;
 }
