@@ -1,15 +1,6 @@
-const selectElement = document.querySelector('#logged-in');
-
-// hide sections when changing user
-selectElement.addEventListener('change', hideSections);
 
 // load users on page load
 showUsers();
-
-// TODO: make this dynamic in options
-function getCurrentUserID() {
-    return selectElement.value;
-}
 
 function renderLiToUl(ulElement, liElement) {
     ulElement.appendChild(liElement);

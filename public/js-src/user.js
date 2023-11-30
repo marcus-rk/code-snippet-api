@@ -1,15 +1,24 @@
 const userButton = document.querySelector('#user-btn');
 const userSectionElement = document.querySelector('.user');
+const userSelectElement = document.querySelector('header #logged-in');
 const userUlElement = document.querySelector('.user ul');
 const userCountElement = document.querySelector('.user span');
 
+let hasLoadedUserLogin = false;
+
 userButton.addEventListener('click', showUsers);
+userSelectElement.addEventListener('change', showFaveCodeSnippets);
 
 function showUsers() {
     fetch('/users')
         .then(response => response.json())
-        .then(userArray => createAndDisplayUsers(userArray)
-        ).catch(error => {
+        .then(userArray => {
+            if (!hasLoadedUserLogin){
+                loadUserLogins(userArray);
+                hasLoadedUserLogin = true;
+            }
+            createAndDisplayUsers(userArray)
+        }).catch(error => {
         console.error('Something went wrong:', error); // TODO: make better error-handling
     });
 }
@@ -46,4 +55,21 @@ function getUserElement(userObject) {
     li.appendChild(spanDate);
 
     return li;
+}
+
+function loadUserLogins(userArray) {
+    userArray.forEach(userObject => {
+        const username = userObject.username;
+        const id = userObject.user_id;
+
+        const option = document.createElement('option');
+        option.innerText = username;
+        option.setAttribute('value', id);
+
+        userSelectElement.appendChild(option);
+    });
+}
+
+function getCurrentUserID() {
+    return userSelectElement.value;
 }
