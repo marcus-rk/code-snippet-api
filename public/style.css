@@ -6,7 +6,7 @@
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 body {
@@ -27,7 +27,7 @@ header {
     width: 95%;
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 16px 0;
     border-bottom: 2px solid greenyellow;
 }
 
@@ -50,7 +50,43 @@ main {
     gap: 20px;
 }
 
-button, select {
+#backdrop {
+    position: fixed;
+    top: 0;
+    min-height: 100dvh;
+    min-width: 100dvw;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+#create-user-dialog {
+    z-index: 2;
+    position: fixed;
+    top: 25dvh;
+    display: flex;
+    width: 50%;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 23px;
+    color: greenyellow;
+    background: black;
+    border: 3px solid greenyellow;
+    flex-direction: column;
+}
+
+#create-user-dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#create-user-dialog span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+button, select, input {
     color: greenyellow;
     background: none;
     border: 3px solid greenyellow;

@@ -1,12 +1,23 @@
 const userButton = document.querySelector('#user-btn');
+const createNewUserButton = document.querySelector('header #new-user');
 const userSectionElement = document.querySelector('.user');
 const userSelectElement = document.querySelector('header #logged-in');
 const userUlElement = document.querySelector('.user ul');
 const userCountElement = document.querySelector('.user span');
 
+const dialog = document.querySelector('#create-user-dialog');
+const backdrop = document.querySelector('#backdrop');
+const createUserFormButton = document.querySelector('#dialog-create');
+const cancelUserFormButton = document.querySelector('#dialog-cancel');
+const usernameInput = document.querySelector('form #username');
+const passwordInput = document.querySelector('form #password');
+
 let hasLoadedUserLogin = false;
 
 userButton.addEventListener('click', showUsers);
+createNewUserButton.addEventListener('click', toggleModal);
+cancelUserFormButton.addEventListener('click', toggleModal);
+createUserFormButton.addEventListener('click', createNewUser);
 userSelectElement.addEventListener('change', showFaveCodeSnippets);
 
 function showUsers() {
@@ -68,6 +79,47 @@ function loadUserLogins(userArray) {
 
         userSelectElement.appendChild(option);
     });
+}
+
+function createNewUser() {
+    const username = usernameInput.value;
+    const password = passwordInput.value;
+
+    console.log(username);
+    console.log(password);
+
+    fetch("/users/new", {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            "username": username,
+            "password": password
+        })
+    }).then(response => {
+            if (response.ok) {
+                console.log('User created successfully');
+                toggleModal();
+                // TODO: LOG IN TO USER AFTER CREATION
+            } else {
+                console.error('Something went wrong:', response.statusText);
+                return Promise.reject(response.status); // Reject the promise with the status
+            }
+        }).catch(error => {
+            if (error === 403) {
+                console.log('User exists');
+            } else {
+                console.error('Unhandled error:', error);
+            }
+        });
+}
+
+function toggleModal() {
+    usernameInput.value = '';
+    passwordInput.value = '';
+    dialog.classList.toggle('hidden');
+    backdrop.classList.toggle('hidden');
 }
 
 function getCurrentUserID() {

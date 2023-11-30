@@ -17,6 +17,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors()); // avoid network security restrictions
+app.use(express.json());
 
 // Creating connection to code-snippet database in MySQL
 const connection = mysql.createConnection({
@@ -36,6 +37,32 @@ app.get('/users',(req, res)=>{
     connection.query('SELECT user_id, username, created_at FROM `user`',(error, results)=>{
         res.send(results);
     });
+});
+
+// Creating a new user
+app.post('/users/new', (req, res) => {
+    const username = req.body.username.toString();
+    const password = req.body.password.toString();
+
+    connection.query('SELECT username FROM `user` WHERE username = ?',
+        [username],
+        (error, results) => {
+            if (results.length > 0) {
+                res.status(403).send('Username already exists');
+            } else {
+                connection.query('INSERT INTO `user` (username, `password`) VALUES (?, ?)',
+                    [username, password],
+                    (error, results) => {
+                        if (error) {
+                            console.error('Error inserting user:', error);
+                            res.status(500).send('Internal Server Error ' +  error);
+                        } else {
+                            console.log(username + " " + password);
+                            res.status(200).send(results);
+                        }
+                    });
+            }
+        });
 });
 
 // Select all code snippets

@@ -10,9 +10,9 @@
 <header>
     <h1>code-snippet-project.</h1>
 
-    <!-- TODO: Make logged in options dynamic to database -->
     <div>
-        <label for="logged-in">Log in as:</label>
+        <button id="new-user">Create new user</button>
+        <label for="logged-in">or log in as:</label>
         <select id="logged-in"></select>
     </div>
 </header>
@@ -22,6 +22,20 @@
         <button id="user-btn">show all users</button>
         <button id="code-snippet-btn">show all code-snippets</button>
         <button id="fave-snippet-btn">show fave-snippets</button>
+    </div>
+
+    <!-- dialog does not work -->
+    <div id="backdrop" class="hidden"></div>
+    <div id="create-user-dialog" class="hidden">
+        <span>Create new user</span>
+        <form>
+            <label for="username">username</label>
+            <input type="text" id="username" placeholder="username" required>
+            <label for="password">password</label>
+            <input type="password" id="password" placeholder="password" required>
+        </form>
+        <button id="dialog-create">Create User</button>
+        <button id="dialog-cancel">Cancel</button>
     </div>
 
     <section class="user">
