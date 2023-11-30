@@ -59,6 +59,11 @@ app.get('/:id/code-snippet-faves',(req, res)=>{
     });
 });
 
+// Send 404 error if no api-end-point match
+app.get('*',(req,res) =>{
+    res.sendStatus(404);
+});
+
 app.listen(port, () =>{
     console.log(`Application is now running on port ${port}`);
 });
