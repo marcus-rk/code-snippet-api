@@ -105,6 +105,40 @@ button, select, input {
     border-bottom: 2px solid greenyellow;
 }
 
+#create-code-dialog {
+    z-index: 2;
+    position: fixed;
+    top: 10dvh;
+    display: flex;
+    width: 50%;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 23px;
+    color: greenyellow;
+    background: black;
+    border: 3px solid greenyellow;
+    flex-direction: column;
+}
+
+#create-code-dialog form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+}
+
+#create-code-dialog #code {
+    resize: none;
+    height: 100px;
+    width: 250px;
+    padding: 10px;
+    color: greenyellow;
+    background: black;
+    border: 3px solid greenyellow;
+}
+
 section {
     display: flex;
     flex-direction: column;

@@ -3,7 +3,24 @@ const codeSnippetSectionElement = document.querySelector('.code-snippet');
 const codeSnippetUlElement = document.querySelector('.code-snippet ul');
 const codeSnippetCountElement = document.querySelector('.code-snippet span');
 
+const createCodeShowDialog = document.querySelector('#create-code-snippet-btn');
+const createCodeDialog = document.querySelector('#create-code-dialog');
+const createCodeTitle = document.querySelector('#create-code-dialog #title');
+const createCodeLanguage = document.querySelector('#create-code-dialog #language');
+const createCodeBody = document.querySelector('#create-code-dialog #code');
+const createCodeButton = document.querySelector('#code-create');
+const cancelCodeButton = document.querySelector('#code-cancel');
+
 codeSnippetButton.addEventListener('click', showCodeSnippets);
+createCodeShowDialog.addEventListener('click', toggleCreationModal);
+createCodeButton.addEventListener('click', createNewCodeSnippet);
+cancelCodeButton.addEventListener('click', toggleCreationModal);
+createCodeBody.addEventListener('keydown', (event)=> {
+    if (event.key === 'Tab') {
+        event.preventDefault();
+        createCodeBody.value += '\t';
+    }
+});
 
 function showCodeSnippets() {
     fetch('/code-snippets')
@@ -58,4 +75,43 @@ function getCodeSnippetElement(codeSnippetObject) {
     li.appendChild(pre);
 
     return li;
+}
+
+function createNewCodeSnippet() {
+    const title = createCodeTitle.value;
+    const language_id = createCodeLanguage.value;
+    const code_snippet = createCodeBody.value;
+    const user_id = getCurrentUserID();
+
+    fetch("/code-snippets/new", {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            "title": title,
+            "language_id": language_id,
+            "code_snippet": code_snippet,
+            "user_id": user_id
+        })
+    }).then(response => {
+        if (response.ok) {
+            console.log('Code-snippet created successfully');
+            showCodeSnippets();
+            toggleCreationModal();
+        } else {
+            console.error('Something went wrong:', response.statusText);
+            return Promise.reject(response.status); // Reject the promise with the status
+        }
+    }).catch(error => {
+        console.error('Unhandled error:', error);
+    });
+}
+
+function toggleCreationModal() {
+    console.log("dick")
+    createCodeTitle.value = '';
+    createCodeBody.value = '';
+    createCodeDialog.classList.toggle('hidden');
+    backdrop.classList.toggle('hidden');
 }

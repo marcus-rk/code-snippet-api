@@ -73,6 +73,24 @@ app.get('/code-snippets',(req, res)=>{
     });
 });
 
+app.post('/code-snippets/new',(req, res)=>{
+    const title = req.body.title;
+    const language_id = req.body.language_id;
+    const code_snippet = req.body.code_snippet;
+    const user_id = req.body.user_id;
+
+    connection.query('INSERT INTO code_snippet (user_id, title, code_snippet, language_id) VALUES (?, ?, ?, ?)',
+        [user_id, title, code_snippet, language_id],
+        (error, results) => {
+            if (error) {
+                console.error('Error inserting code-snippet:', error);
+                res.status(500).send('Internal Server Error ' +  error);
+            } else {
+                res.status(200).send(results);
+            }
+        });
+});
+
 
 // Select fave code-snippets for specific user id
 // Select title, author, language and code
