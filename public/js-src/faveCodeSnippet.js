@@ -3,9 +3,11 @@ const faveSnippetSectionElement = document.querySelector('.fave-snippet');
 const faveSnippetUlElement = document.querySelector('.fave-snippet ul');
 const faveSnippetCountElement = document.querySelector('.fave-snippet span');
 
-
 faveSnippetButton.addEventListener('click', showFaveCodeSnippets);
 
+/**
+ * Fetches favorite code snippet data from the server and updates the UI with the retrieved information.
+ */
 function showFaveCodeSnippets() {
     const userId = getCurrentUserID();
 
@@ -17,6 +19,11 @@ function showFaveCodeSnippets() {
     });
 }
 
+/**
+ * Creates and displays favorite code snippet information in the UI.
+ *
+ * @param {Array} faveSnippetArray - An array of favorite code snippet objects containing information.
+ */
 function createAndDisplayFaveSnippets(faveSnippetArray) {
     hideSections();
     clearUl(faveSnippetUlElement);
@@ -30,6 +37,12 @@ function createAndDisplayFaveSnippets(faveSnippetArray) {
     faveSnippetSectionElement.classList.remove('hidden');
 }
 
+/**
+ * Creates a list item element representing a favorite code snippet.
+ *
+ * @param {Object} faveSnippetObject - The favorite code snippet object containing information.
+ * @returns {HTMLLIElement} - The created list item element.
+ */
 function getFaveSnippetElement(faveSnippetObject) {
     const title = faveSnippetObject.title;
     const author = faveSnippetObject.author;
@@ -57,6 +70,7 @@ function getFaveSnippetElement(faveSnippetObject) {
     li.appendChild(spanProgrammingLanguage);
     li.appendChild(pre);
 
+    // un-favorite button that matches snippet_id
     const button = document.createElement('button');
     button.innerText = "un-favorite this";
     button.setAttribute('snippet-id', snippet_id);
@@ -71,6 +85,11 @@ function getFaveSnippetElement(faveSnippetObject) {
     return li;
 }
 
+/**
+ * Creates a new favorite code snippet by sending a POST request to the server.
+ *
+ * @param {number} snippet_id - The ID of the code snippet to be marked as a favorite.
+ */
 function createNewFaveCodeSnippet(snippet_id) {
     const user_id = getCurrentUserID();
 
@@ -95,6 +114,11 @@ function createNewFaveCodeSnippet(snippet_id) {
     });
 }
 
+/**
+ * Removes a code snippet from favorites by sending a POST request to the server.
+ *
+ * @param {number} snippet_id - The ID of the code snippet to be removed from favorites.
+ */
 function removeFaveCodeSnippet(snippet_id) {
     fetch("/code-snippet-faves/remove", {
         method: 'POST',
