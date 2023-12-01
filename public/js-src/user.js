@@ -27,7 +27,7 @@ let hasLoadedUserLogin = false;
  * Fetches user data from the server and updates the UI with the retrieved user information.
  */
 function showUsers() {
-    fetch('/users')
+    fetch('/users/all')
         .then(response => response.json())
         .then(userArray => {
             if (!hasLoadedUserLogin){

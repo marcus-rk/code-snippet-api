@@ -29,7 +29,7 @@ const connection = mysql.createConnection({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Endpoint to retrieve all users (excluding passwords)
-app.get('/users',(req, res)=>{
+app.get('/users/all',(req, res)=>{
     connection.query('SELECT user_id, username, created_at FROM `user`',(error, results)=>{
         res.send(results);
     });
@@ -64,7 +64,7 @@ app.post('/users/new', (req, res) => {
 });
 
 // Endpoint to retrieve all code snippets (title, author, author_id, language, code, date, snippet_id)
-app.get('/code-snippets',(req, res)=>{
+app.get('/code-snippets/all',(req, res)=>{
     connection.query('SELECT CS.title, U.username AS author, U.user_id AS author_id, PL.language_name AS programming_language, CS.code_snippet AS `code`, CS.created_at AS `date`, CS.snippet_id FROM code_snippet AS CS INNER JOIN `user` AS U ON CS.user_id = U.user_id INNER JOIN programming_language AS PL ON CS.language_id = PL.language_id',(error, results)=>{
         res.send(results);
     });
@@ -142,7 +142,7 @@ app.get('/:id/code-snippet-faves',(req, res)=>{
 });
 
 // Endpoint to retrieve all programming languages
-app.get('/programming_languages',(req, res)=>{
+app.get('/programming_languages/all',(req, res)=>{
     connection.query('SELECT * FROM programming_language',(error, results)=>{
         res.send(results);
     });

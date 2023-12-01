@@ -32,7 +32,7 @@ createCodeBody.addEventListener('keydown', (event)=> {
  * @function
  */
 function showCodeSnippets() {
-    fetch('/code-snippets')
+    fetch('/code-snippets/all')
         .then(response => response.json())
         .then(codeSnippetArray => createAndDisplayCodeSnippets(codeSnippetArray)
         ).catch(error => {
@@ -162,7 +162,7 @@ function createNewCodeSnippet() {
  * Renders the programming languages in the create code snippet form select.
  */
 function renderProgrammingLanguages() {
-    fetch('/programming_languages')
+    fetch('/programming_languages/all')
         .then(response => response.json())
         .then(languagesArray => {
             loadProgrammingLanguages(languagesArray);
