@@ -13,7 +13,7 @@ function showFaveCodeSnippets() {
         .then(response => response.json())
         .then(faveSnippetArray => createAndDisplayFaveSnippets(faveSnippetArray)
         ).catch(error => {
-        console.error('Something went wrong:', error); // TODO: make better error-handling
+        console.error('Something went wrong:', error);
     });
 }
 
@@ -33,6 +33,7 @@ function createAndDisplayFaveSnippets(faveSnippetArray) {
 function getFaveSnippetElement(faveSnippetObject) {
     const title = faveSnippetObject.title;
     const author = faveSnippetObject.author;
+    const snippet_id = faveSnippetObject.snippet_id;
     const programmingLanguage = faveSnippetObject.programming_language;
     const code = faveSnippetObject.code;
     const codeFormatted = code.replaceAll('\t', '\n') // tab and new line
@@ -56,5 +57,61 @@ function getFaveSnippetElement(faveSnippetObject) {
     li.appendChild(spanProgrammingLanguage);
     li.appendChild(pre);
 
+    const button = document.createElement('button');
+    button.innerText = "un-favorite this";
+    button.setAttribute('snippet-id', snippet_id);
+    button.addEventListener('click', (event) => {
+        const snippet_id = event.target.getAttribute('snippet-id');
+        removeFaveCodeSnippet(parseInt(snippet_id));
+        showFaveCodeSnippets();
+    });
+
+    li.appendChild(button);
+
     return li;
+}
+
+function createNewFaveCodeSnippet(snippet_id) {
+    const user_id = getCurrentUserID();
+
+    fetch("/code-snippet-faves/new", {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            "user_id": user_id,
+            "snippet_id": snippet_id
+        })
+    }).then(response => {
+        if (response.ok) {
+            console.log('code-snippet favorite successfully');
+        } else {
+            console.error('Something went wrong:', response.statusText);
+            return Promise.reject(response.status); // Reject the promise with the status
+        }
+    }).catch(error => {
+        console.error('Unhandled error:', error);
+    });
+}
+
+function removeFaveCodeSnippet(snippet_id) {
+    fetch("/code-snippet-faves/remove", {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            "snippet_id": snippet_id
+        })
+    }).then(response => {
+        if (response.ok) {
+            console.log('code-snippet un-favorite successfully');
+        } else {
+            console.error('Something went wrong:', response.statusText);
+            return Promise.reject(response.status); // Reject the promise with the status
+        }
+    }).catch(error => {
+        console.error('Unhandled error:', error);
+    });
 }

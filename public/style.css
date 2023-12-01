@@ -161,6 +161,10 @@ li {
     padding: 20px;
 }
 
+ul li button {
+    margin-top: 16px;
+}
+
 /*********************************************/
 /************ FOOTER START *******************/
 /*********************************************/
@@ -170,4 +174,14 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 40px;
+}
+
+@media screen and (max-width: 900px) {
+    header {
+        justify-content: center;
+        align-items: center;
+    }
+    header h1 {
+        display: none;
+    }
 }

@@ -18,7 +18,7 @@ userButton.addEventListener('click', showUsers);
 createNewUserButton.addEventListener('click', toggleModal);
 cancelUserFormButton.addEventListener('click', toggleModal);
 createUserFormButton.addEventListener('click', createNewUser);
-userSelectElement.addEventListener('change', showFaveCodeSnippets);
+userSelectElement.addEventListener('change', showUsers);
 
 function showUsers() {
     fetch('/users')
@@ -91,9 +91,6 @@ function createNewUser() {
     const username = usernameInput.value;
     const password = passwordInput.value;
 
-    console.log(username);
-    console.log(password);
-
     fetch("/users/new", {
         method: 'POST',
         headers: {
@@ -108,6 +105,7 @@ function createNewUser() {
                 console.log('User created successfully');
                 updateToCreatedUser(username);
                 toggleModal();
+                showUsers();
             } else {
                 console.error('Something went wrong:', response.statusText);
                 return Promise.reject(response.status); // Reject the promise with the status
@@ -136,5 +134,5 @@ function toggleModal() {
 }
 
 function getCurrentUserID() {
-    return userSelectElement.value;
+    return parseInt(userSelectElement.value);
 }

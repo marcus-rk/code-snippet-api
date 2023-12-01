@@ -50,6 +50,8 @@ function createAndDisplayCodeSnippets(codeSnippetArray) {
 function getCodeSnippetElement(codeSnippetObject) {
     const title = codeSnippetObject.title;
     const author = codeSnippetObject.author;
+    const author_id = codeSnippetObject.author_id;
+    const snippet_id = codeSnippetObject.snippet_id;
     const programmingLanguage = codeSnippetObject.programming_language;
     const date = codeSnippetObject.date.slice(0,10);
     const code = codeSnippetObject.code;
@@ -76,6 +78,18 @@ function getCodeSnippetElement(codeSnippetObject) {
     li.appendChild(spanProgrammingLanguage);
     li.appendChild(spanDate);
     li.appendChild(pre);
+
+    if (author_id !== getCurrentUserID()) {
+        const button = document.createElement('button');
+        button.innerText = "favorite this";
+        button.setAttribute('snippet-id', snippet_id);
+        button.addEventListener('click', (event) => {
+            const snippet_id = event.target.getAttribute('snippet-id');
+            createNewFaveCodeSnippet(parseInt(snippet_id));
+            button.classList.add('hidden');
+        });
+        li.appendChild(button);
+    }
 
     return li;
 }
