@@ -104,6 +104,13 @@ app.get('/:id/code-snippet-faves',(req, res)=>{
     });
 });
 
+// Select all from programming_language table
+app.get('/programming_languages',(req, res)=>{
+    connection.query('SELECT * FROM programming_language',(error, results)=>{
+        res.send(results);
+    });
+});
+
 // Send 404 error if no api-end-point match
 app.get('*',(req,res) =>{
     res.sendStatus(404);

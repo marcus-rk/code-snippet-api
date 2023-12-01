@@ -12,7 +12,10 @@ const createCodeButton = document.querySelector('#code-create');
 const cancelCodeButton = document.querySelector('#code-cancel');
 
 codeSnippetButton.addEventListener('click', showCodeSnippets);
-createCodeShowDialog.addEventListener('click', toggleCreationModal);
+createCodeShowDialog.addEventListener('click', ()=> {
+    toggleCreationModal();
+    renderProgrammingLanguages();
+});
 createCodeButton.addEventListener('click', createNewCodeSnippet);
 cancelCodeButton.addEventListener('click', toggleCreationModal);
 createCodeBody.addEventListener('keydown', (event)=> {
@@ -106,6 +109,35 @@ function createNewCodeSnippet() {
     }).catch(error => {
         console.error('Unhandled error:', error);
     });
+}
+
+function renderProgrammingLanguages() {
+    fetch('/programming_languages')
+        .then(response => response.json())
+        .then(languagesArray => {
+            loadProgrammingLanguages(languagesArray);
+        }).catch(error => {
+        console.error('Something went wrong:', error);
+    });
+}
+
+function loadProgrammingLanguages(languagesArray) {
+    languagesArray.forEach(languageObject => {
+        const id = languageObject.language_id;
+        const name = languageObject.language_name;
+
+        const option = createLanguageOption(name,id);
+
+        createCodeLanguage.appendChild(option);
+    });
+}
+
+function createLanguageOption(name,id) {
+    const option = document.createElement('option');
+    option.innerText = name;
+    option.setAttribute('value', id);
+
+    return option;
 }
 
 function toggleCreationModal() {
