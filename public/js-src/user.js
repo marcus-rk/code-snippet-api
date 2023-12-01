@@ -1,3 +1,4 @@
+// User section
 const userButton = document.querySelector('#user-btn');
 const createNewUserButton = document.querySelector('header #new-user');
 const userSectionElement = document.querySelector('.user');
@@ -5,6 +6,7 @@ const userSelectElement = document.querySelector('header #logged-in');
 const userUlElement = document.querySelector('.user ul');
 const userCountElement = document.querySelector('.user span');
 
+// Creating a user modal
 const dialog = document.querySelector('#create-user-dialog');
 const backdrop = document.querySelector('#backdrop');
 const createUserFormButton = document.querySelector('#dialog-create');
@@ -12,28 +14,37 @@ const cancelUserFormButton = document.querySelector('#dialog-cancel');
 const usernameInput = document.querySelector('form #username');
 const passwordInput = document.querySelector('form #password');
 
-let hasLoadedUserLogin = false;
-
 userButton.addEventListener('click', showUsers);
 createNewUserButton.addEventListener('click', toggleModal);
 cancelUserFormButton.addEventListener('click', toggleModal);
 createUserFormButton.addEventListener('click', createNewUser);
+// When user changes, show user section
 userSelectElement.addEventListener('change', showUsers);
 
+let hasLoadedUserLogin = false;
+
+/**
+ * Fetches user data from the server and updates the UI with the retrieved user information.
+ */
 function showUsers() {
     fetch('/users')
         .then(response => response.json())
         .then(userArray => {
             if (!hasLoadedUserLogin){
-                loadUserLogins(userArray);
+                renderUserLogins(userArray);
                 hasLoadedUserLogin = true;
             }
             createAndDisplayUsers(userArray)
         }).catch(error => {
-        console.error('Something went wrong:', error); // TODO: make better error-handling
+        console.error('Something went wrong:', error);
     });
 }
 
+/**
+ * Creates and displays user information in the UI.
+ *
+ * @param {Array} userArray - An array of user objects containing user information.
+ */
 function createAndDisplayUsers(userArray) {
     hideSections();
     clearUl(userUlElement);
@@ -47,6 +58,12 @@ function createAndDisplayUsers(userArray) {
     userSectionElement.classList.remove('hidden');
 }
 
+/**
+ * Creates a list item element representing a user.
+ *
+ * @param {Object} userObject - The user object containing user information.
+ * @returns {HTMLLIElement} - The created list item element.
+ */
 function getUserElement(userObject) {
     const username = userObject.username;
     const id = userObject.user_id;
@@ -68,7 +85,12 @@ function getUserElement(userObject) {
     return li;
 }
 
-function loadUserLogins(userArray) {
+/**
+ * Render user logins into the select element.
+ *
+ * @param {Array} userArray - An array of user objects containing user information.
+ */
+function renderUserLogins(userArray) {
     userArray.forEach(userObject => {
         const username = userObject.username;
         const id = userObject.user_id;
@@ -79,6 +101,13 @@ function loadUserLogins(userArray) {
     });
 }
 
+/**
+ * Creates an option element for a user in the select element.
+ *
+ * @param {string} username - The username of the user.
+ * @param {number} id - The user ID.
+ * @returns {HTMLOptionElement} - The created option element.
+ */
 function createUserOption(username,id) {
     const option = document.createElement('option');
     option.innerText = username;
@@ -87,6 +116,9 @@ function createUserOption(username,id) {
     return option
 }
 
+/**
+ * Creates a new user by sending a POST request to the server API.
+ */
 function createNewUser() {
     const username = usernameInput.value;
     const password = passwordInput.value;
@@ -119,6 +151,11 @@ function createNewUser() {
         });
 }
 
+/**
+ * Updates the user select element to include and select newly created user.
+ *
+ * @param {string} username - The username of the newly created user.
+ */
 function updateToCreatedUser(username) {
     const lastOptionValue = parseInt(userSelectElement.lastChild.value);
     const newUserOption = createUserOption(username, lastOptionValue + 1);
