@@ -73,12 +73,18 @@ function loadUserLogins(userArray) {
         const username = userObject.username;
         const id = userObject.user_id;
 
-        const option = document.createElement('option');
-        option.innerText = username;
-        option.setAttribute('value', id);
+        const option = createUserOption(username,id);
 
         userSelectElement.appendChild(option);
     });
+}
+
+function createUserOption(username,id) {
+    const option = document.createElement('option');
+    option.innerText = username;
+    option.setAttribute('value', id);
+
+    return option
 }
 
 function createNewUser() {
@@ -100,8 +106,8 @@ function createNewUser() {
     }).then(response => {
             if (response.ok) {
                 console.log('User created successfully');
+                updateToCreatedUser(username);
                 toggleModal();
-                // TODO: LOG IN TO USER AFTER CREATION
             } else {
                 console.error('Something went wrong:', response.statusText);
                 return Promise.reject(response.status); // Reject the promise with the status
@@ -113,6 +119,13 @@ function createNewUser() {
                 console.error('Unhandled error:', error);
             }
         });
+}
+
+function updateToCreatedUser(username) {
+    const lastOptionValue = parseInt(userSelectElement.lastChild.value);
+    const newUserOption = createUserOption(username, lastOptionValue + 1);
+    userSelectElement.appendChild(newUserOption);
+    userSelectElement.value = newUserOption.value;
 }
 
 function toggleModal() {
